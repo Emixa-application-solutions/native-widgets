@@ -5,7 +5,7 @@
             <widgetFile path="Animation.xml" />
         </widgetFiles>
         <files>
-            <file path="com/mendix/widget/native/animation" />
+            <file path="com/emixa/collincustom/animation" />
         </files>
     </clientModule>
 </package>

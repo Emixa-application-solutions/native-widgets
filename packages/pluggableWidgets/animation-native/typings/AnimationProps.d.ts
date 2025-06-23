@@ -134,6 +134,7 @@ export interface AnimationPreviewProps {
     style: string;
     styleObject?: CSSProperties;
     readOnly: boolean;
+    renderMode?: "design" | "xray" | "structure";
     content: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     animationType: AnimationTypeEnum;
     animationIn: AnimationInEnum;

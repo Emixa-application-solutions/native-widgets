@@ -55,6 +55,7 @@ export interface IntroScreenPreviewProps {
     style: string;
     styleObject?: CSSProperties;
     readOnly: boolean;
+    renderMode?: "design" | "xray" | "structure";
     slides: SlidesPreviewType[];
     showMode: ShowModeEnum;
     buttonPattern: ButtonPatternEnum;

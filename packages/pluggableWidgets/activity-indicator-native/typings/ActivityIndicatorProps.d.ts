@@ -20,5 +20,6 @@ export interface ActivityIndicatorPreviewProps {
     style: string;
     styleObject?: CSSProperties;
     readOnly: boolean;
+    renderMode?: "design" | "xray" | "structure";
 
 }

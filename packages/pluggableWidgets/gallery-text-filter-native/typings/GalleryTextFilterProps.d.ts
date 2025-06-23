@@ -28,6 +28,7 @@ export interface GalleryTextFilterPreviewProps {
     style: string;
     styleObject?: CSSProperties;
     readOnly: boolean;
+    renderMode?: "design" | "xray" | "structure";
     defaultValue: string;
     defaultFilter: DefaultFilterEnum;
     placeholder: string;

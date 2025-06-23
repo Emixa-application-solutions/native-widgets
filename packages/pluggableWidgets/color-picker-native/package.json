@@ -1,7 +1,7 @@
 {
   "name": "color-picker-native",
   "widgetName": "ColorPicker",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -33,9 +33,8 @@
     "tinycolor2": "^1.4.1"
   },
   "devDependencies": {
-    "@mendix/pluggable-widgets-tools": "^9.0.0",
+    "@mendix/pluggable-widgets-tools": "~10.0.1",
     "@types/tinycolor2": "^1.4.1",
-    "detox": "^19.13.0",
-    "eslint": "^7.20.0"
+    "eslint": "^7.32.0"
   }
 }

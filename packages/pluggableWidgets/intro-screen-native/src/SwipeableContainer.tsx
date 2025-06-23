@@ -1,14 +1,4 @@
-import {
-    ComponentClass,
-    createElement,
-    Fragment,
-    ReactElement,
-    ReactNode,
-    useCallback,
-    useEffect,
-    useRef,
-    useState
-} from "react";
+import { createElement, Fragment, ReactElement, ReactNode, useCallback, useEffect, useRef, useState } from "react";
 import {
     FlatList,
     I18nManager,
@@ -56,7 +46,7 @@ interface SwipeableContainerProps {
 declare type Option<T> = T | undefined;
 
 const isAndroidRTL = I18nManager.isRTL && Platform.OS === "android";
-const Touchable: ComponentClass<any> = Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity;
+const Touchable = Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity;
 
 const refreshActiveSlideAttribute = (slides: SlidesType[], activeSlide?: EditableValue<Big>): number => {
     if (activeSlide && activeSlide.status === ValueStatus.Available && slides && slides.length > 0) {
@@ -175,7 +165,12 @@ export const SwipeableContainer = (props: SwipeableContainerProps): ReactElement
         [props]
     );
 
-    const renderNextButton = ({ showNextButton, nextLabel, nextIcon, styles }: SwipeableContainerProps): ReactNode =>
+    const renderNextButton = ({
+        showNextButton = true,
+        nextLabel,
+        nextIcon,
+        styles
+    }: SwipeableContainerProps): ReactNode =>
         showNextButton &&
         renderButton(
             nextLabel,
@@ -203,7 +198,7 @@ export const SwipeableContainer = (props: SwipeableContainerProps): ReactElement
         );
 
     const renderDoneButton = ({
-        showDoneButton,
+        showDoneButton = true,
         doneLabel,
         doneIcon,
         onDone,
@@ -336,11 +331,6 @@ export const SwipeableContainer = (props: SwipeableContainerProps): ReactElement
             {renderPagination()}
         </View>
     );
-};
-
-SwipeableContainer.defaultProps = {
-    showDoneButton: true,
-    showNextButton: true
 };
 
 const styles = StyleSheet.create({

@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [2.0.0] - 2024-12-3
+
+### Changed
+
+-   Updated @mendix/pluggable-widgets-tools from version v9.0.0 to v10.15.0.
+
+### BREAKING
+
+-   Updated react-native-device-info from version v11.1.0 to v13.0.0.
+
 ## [1.1.0] - 2024-8-29
 
 ### Added

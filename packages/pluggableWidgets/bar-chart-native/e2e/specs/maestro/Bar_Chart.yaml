@@ -1,0 +1,15 @@
+appId: "${APP_ID}"
+---
+- runFlow:
+    file: "../../../../../../maestro/Precondition.yaml"
+- tapOn:
+    text: "B"
+- tapOn:
+    text: "Bar chart"
+- assertVisible:
+    text: "Bar chart"
+- assertVisible:
+    id: "container1"
+- takeScreenshot:
+    path: "maestro/images/actual/${PLATFORM}/bar_chart"
+

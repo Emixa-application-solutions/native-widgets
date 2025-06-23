@@ -6,6 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [3.4.0] - 2025-3-31
+
+### Changed
+
+-   Updated react-native-view-shot from version v3.1.2 to v4.0.3.
+
+## [3.3.0] - 2024-12-3
+
+### Changed
+
+-   Updated @mendix/pluggable-widgets-tools from version v9.0.0 to v10.15.0.
+
 ## [3.2.2] - 2022-10-5
 
 ### Fixed

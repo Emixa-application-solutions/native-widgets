@@ -1,7 +1,7 @@
 {
   "name": "nanoflow-actions-native",
   "moduleName": "Nanoflow Commons",
-  "version": "4.0.4",
+  "version": "5.1.2",
   "license": "Apache-2.0",
   "copyright": "© Mendix Technology BV 2022. All rights reserved.",
   "repository": {
@@ -9,7 +9,7 @@
     "url": "https://github.com/mendix/native-widgets.git"
   },
   "marketplace": {
-    "minimumMXVersion": "10.13.0.41393",
+    "minimumMXVersion": "10.21.0.64362",
     "marketplaceId": 109515
   },
   "testProject": {
@@ -24,16 +24,16 @@
     "release:marketplace": "node ../../../scripts/release/marketplaceRelease.js"
   },
   "dependencies": {
-    "@react-native-community/async-storage": "1.12.1",
-    "@react-native-community/geolocation": "2.0.2",
+    "@react-native-async-storage/async-storage": "2.0.0",
+    "@react-native-community/geolocation": "3.4.0",
     "invariant": "^2.2.4",
     "js-base64": "~3.7.2",
-    "react-native-geocoder": "0.5.0",
-    "react-native-geolocation-service": "5.2.0"
+    "react-native-geocoder": "0.5.0"
   },
   "devDependencies": {
-    "@mendix/pluggable-widgets-tools": "^9.0.0",
-    "eslint": "^7.20.0",
-    "rollup": "^2.68.0"
+    "@mendix/pluggable-widgets-tools": "^10.0.1",
+    "eslint": "^7.32.0",
+    "mendix": "~10.0.9976",
+    "rollup": "^2.79.2"
   }
 }

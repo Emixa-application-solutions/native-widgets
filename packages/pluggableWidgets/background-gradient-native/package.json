@@ -1,7 +1,7 @@
 {
   "name": "background-gradient-native",
   "widgetName": "BackgroundGradient",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/mendix/native-widgets.git"
@@ -25,9 +25,8 @@
     "test:e2e:ios:update-snapshot": "detox test --updateSnapshot --configuration ios.simulator.developerapp"
   },
   "devDependencies": {
-    "@mendix/pluggable-widgets-tools": "^9.0.0",
-    "detox": "^19.13.0",
-    "eslint": "^7.20.0"
+    "@mendix/pluggable-widgets-tools": "~10.0.1",
+    "eslint": "^7.32.0"
   },
   "dependencies": {
     "@mendix/piw-utils-internal": "*",

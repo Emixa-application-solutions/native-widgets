@@ -102,6 +102,7 @@ export interface MapsPreviewProps {
     style: string;
     styleObject?: CSSProperties;
     readOnly: boolean;
+    renderMode?: "design" | "xray" | "structure";
     markers: MarkersPreviewType[];
     dynamicMarkers: DynamicMarkersPreviewType[];
     fitToMarkers: boolean;

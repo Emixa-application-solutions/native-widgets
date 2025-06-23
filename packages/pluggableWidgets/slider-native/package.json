@@ -1,7 +1,7 @@
 {
   "name": "slider-native",
   "widgetName": "Slider",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -31,9 +31,8 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@mendix/pluggable-widgets-tools": "^9.0.0",
+    "@mendix/pluggable-widgets-tools": "~10.0.1",
     "@types/ptomasroos__react-native-multi-slider": "^0.0.1",
-    "detox": "^19.13.0",
-    "eslint": "^7.20.0"
+    "eslint": "^7.32.0"
   }
 }

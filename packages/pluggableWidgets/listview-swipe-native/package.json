@@ -1,7 +1,7 @@
 {
   "name": "listview-swipe-native",
   "widgetName": "ListViewSwipe",
-  "version": "3.1.0",
+  "version": "3.3.0",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
@@ -21,10 +21,10 @@
   "dependencies": {
     "@mendix/piw-native-utils-internal": "*",
     "@mendix/piw-utils-internal": "*",
-    "react-native-gesture-handler": "2.16.2"
+    "react-native-gesture-handler": "2.24.0"
   },
   "devDependencies": {
-    "@mendix/pluggable-widgets-tools": "^9.0.0",
-    "eslint": "^7.20.0"
+    "@mendix/pluggable-widgets-tools": "~10.0.1",
+    "eslint": "^7.32.0"
   }
 }

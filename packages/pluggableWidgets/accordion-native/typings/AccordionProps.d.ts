@@ -62,6 +62,7 @@ export interface AccordionPreviewProps {
     style: string;
     styleObject?: CSSProperties;
     readOnly: boolean;
+    renderMode?: "design" | "xray" | "structure";
     groups: GroupsPreviewType[];
     collapsible: boolean;
     collapseBehavior: CollapseBehaviorEnum;

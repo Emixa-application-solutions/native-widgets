@@ -6,6 +6,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [4.0.0] - 2024-12-3
+
+### Changed
+
+-   Updated @mendix/pluggable-widgets-tools from version v9.0.0 to v10.15.0.
+
+### BREAKING
+
+-   We've renamed renderMode property to popupRenderMode in order to avoid conflicts with a newly introduced renderMode system option. To use the new version of the widget, update its property in Studio Pro.
+
 ## [3.0.0] - 2023-3-28
 
 ### Added

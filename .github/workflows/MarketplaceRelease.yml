@@ -1,9 +1,7 @@
 name: Marketplace Release
 
 on:
-  push:
-    tags:
-      - "*-native-v*"
+  workflow_dispatch
 
 jobs:
   publish_release:

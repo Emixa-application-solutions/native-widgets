@@ -1,19 +1,7 @@
 name: Update Minimum MX Version
 
 on:
-  workflow_dispatch:
-    inputs:
-      package_path:
-        description: "Select the package to update"
-        required: true
-        type: choice
-        options:
-          - packages/jsActions/mobile-resources-native
-          - packages/jsActions/nanoflow-actions-native
-      new_version:
-        description: "New minimumMXVersion value"
-        required: true
-        type: string
+  workflow_dispatch
 
 jobs:
   update-version:

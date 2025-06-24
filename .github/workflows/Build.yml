@@ -1,14 +1,7 @@
 name: Run build
 
 on:
-  push:
-    branches:
-      - main
-      - 'mx/release/**'
-  pull_request:
-    branches:
-      - main
-      - 'mx/release/**'
+  workflow_dispatch
 jobs:
   test:
     name: "Build (${{ matrix.os }})"

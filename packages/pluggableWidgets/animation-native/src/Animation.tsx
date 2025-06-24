@@ -18,7 +18,7 @@ export class Animation extends Component<Props> {
         const easingValue = easing.replace(/_/g, "-") as Easing;
         const directionValue = direction.replace(/_/g, "-") as Direction;
         const countValue = count === 0 ? "infinite" : count;
-        const customHeightValue = Number(available(customHeight) ? customHeight.value : 0);
+        const customHeightValue = Number(available(customHeight as any) ? customHeight.value : 0);
         this.validateProps(this.props);
 
         return (
@@ -31,7 +31,7 @@ export class Animation extends Component<Props> {
                 easing={easingValue}
                 iterationCount={countValue}
                 onAnimationEnd={this.animationEndHandle}
-                style={this.styles.container}
+                style={this.styles.container as any} //DV: TypeScript does not allow to use AnimationStyle here
                 // useNativeDriver //DV: Removed for custom Animation
             >
                 {content}
@@ -69,7 +69,7 @@ export class Animation extends Component<Props> {
                 "The 'Entry' and 'Attention' animation is ignored and should be set to 'None' when effect 'type' 'Exit' is selected"
             );
         }
-        if (animationType === "out" && animationOut === "custom" && (!available(customHeight) || !customHeight.value)) {
+        if (animationType === "out" && animationOut === "custom" && (!available(customHeight as any) || !customHeight.value)) {
             this.log("The height attribute is required when effect 'type' 'Custom disappear' is selected");
         }
     }

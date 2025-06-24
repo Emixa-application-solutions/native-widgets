@@ -7,7 +7,19 @@ import { ColumnChartStyle, defaultColumnChartStyle } from "./ui/Styles";
 import { useSeries } from "./utils/SeriesLoader";
 
 export function ColumnChart(props: ColumnChartProps<ColumnChartStyle>): ReactElement | null {
-    const { name, columnSeries, style, xAxisLabel, yAxisLabel, showLabels, ...rest } = props;
+    const {
+        name,
+        columnSeries,
+        style,
+        xAxisLabel,
+        yAxisLabel,
+        offsetY,
+        fixLabelOverlap,
+        useTooltip,
+        tooltipString,
+        showLabels,
+        ...rest
+    } = props;
 
     const customStyles = style.filter(o => o != null);
 
@@ -26,6 +38,10 @@ export function ColumnChart(props: ColumnChartProps<ColumnChartStyle>): ReactEle
             style={styles}
             xAxisLabel={xAxisLabel?.value}
             yAxisLabel={yAxisLabel?.value}
+            offsetY={offsetY}
+            fixLabelOverlap={fixLabelOverlap}
+            useTooltip={useTooltip}
+            tooltipString={tooltipString}
             warningPrefix={`[${name}]: `}
             showLabels={showLabels}
             {...rest}

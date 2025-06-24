@@ -26,7 +26,7 @@ export interface ColumnSeriesType {
     dynamicCustomColumnStyle?: ListAttributeValue<string>;
 }
 
-export type SortOrderEnum = "ascending" | "descending";
+export type SortOrderEnum = "ascending" | "descending" | "noSort";
 
 export interface ColumnSeriesPreviewType {
     dataSet: DataSetEnum;
@@ -53,6 +53,13 @@ export interface ColumnChartProps<Style> {
     showLegend: boolean;
     xAxisLabel?: DynamicValue<string>;
     yAxisLabel?: DynamicValue<string>;
+    offsetY: number;
+    fixLabelOverlap: boolean;
+    useTooltip: boolean;
+    tooltipString: string;
+    pointerLength: number;
+    mouseFollowTooltips: boolean;
+    centerOffsetY: number;
 }
 
 export interface ColumnChartPreviewProps {
@@ -72,4 +79,11 @@ export interface ColumnChartPreviewProps {
     showLegend: boolean;
     xAxisLabel: string;
     yAxisLabel: string;
+    offsetY: number | null;
+    fixLabelOverlap: boolean;
+    useTooltip: boolean;
+    tooltipString: string;
+    pointerLength: number | null;
+    mouseFollowTooltips: boolean;
+    centerOffsetY: number | null;
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<widget id="com.mendix.widget.native.columnchart.ColumnChart" supportedPlatform="Native" offlineCapable="true" pluginWidget="true" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../../../node_modules/mendix/custom_widget.xsd">
-    <name>Column chart</name>
+<widget id="com.emixa.collincustom.columnchart.ColumnChart" supportedPlatform="Native" offlineCapable="true" pluginWidget="true" xmlns="http://www.mendix.com/widget/1.0/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mendix.com/widget/1.0/ ../../../node_modules/mendix/custom_widget.xsd">
+    <name>Column chart (Collin custom)</name>
     <description />
     <studioProCategory>Charts</studioProCategory>
     <studioCategory>Charts</studioCategory>
@@ -130,10 +130,11 @@
                 </property>
                 <property key="sortOrder" type="enumeration" defaultValue="ascending">
                     <caption>Sort order</caption>
-                    <description>Applicable only to Y axis attributes.</description>
+                    <description>Applicable only to Y axis attributes. Use no sort if you don't want to use the order of the data input.</description>
                     <enumerationValues>
                         <enumerationValue key="ascending">Ascending</enumerationValue>
                         <enumerationValue key="descending">Descending</enumerationValue>
+                        <enumerationValue key="noSort">No sort</enumerationValue>
                     </enumerationValues>
                 </property>
             </propertyGroup>
@@ -153,6 +154,36 @@
                 <property key="yAxisLabel" type="textTemplate" required="false" multiline="false">
                     <caption>Y axis label</caption>
                     <description />
+                </property>
+            </propertyGroup>
+            <propertyGroup caption="Custom Collin settings">
+                <property key="offsetY" type="integer" defaultValue="9999">
+                    <caption>Offset Y</caption>
+                    <description>Manually set offset of x-axis from bottom of graph. Default of 9999 will lead to no offset.</description>
+                </property>
+                <property key="fixLabelOverlap" type="boolean" defaultValue="false">
+                    <caption>Fix label overlap</caption>
+                    <description>When true, this prop reduces the number of tick labels to fit the length of the x-axis. Labels are removed at approximately even intervals from the original array of labels. This feature only works well for labels that are approximately evenly spaced.</description>
+                </property>
+                <property key="useTooltip" type="boolean" defaultValue="false">
+                    <caption>Include tooltip</caption>
+                    <description>Include a VictoryVoronoiContainer component, which displays a tooltip when pressed.</description>
+                </property>
+                <property key="tooltipString" type="string" defaultValue="{y}">
+                    <caption>Tooltip text</caption>
+                    <description>Text to display in tooltip. You can use tokens {x} and {y} to dynamically use the column values.</description>
+                </property>
+                <property key="pointerLength" type="integer" defaultValue="9999">
+                    <caption>Pointer length</caption>
+                    <description>Length of the triangular pointer extending from the flyout. 0 means no pointer and 9999 will result in a default value.</description>
+                </property>
+                <property key="mouseFollowTooltips" type="boolean" defaultValue="true">
+                    <caption>Follow mouse</caption>
+                    <description>If true, the center of the tooltip follows the position of the mouse/touch.</description>
+                </property>
+                <property key="centerOffsetY" type="integer" defaultValue="9999">
+                    <caption>Center offset Y</caption>
+                    <description>Determines the position of the center of the tooltip flyout in relation to the flyout pointer in the y-direction. Default of 9999 will lead to no offset.</description>
                 </property>
             </propertyGroup>
             <propertyGroup caption="Common">

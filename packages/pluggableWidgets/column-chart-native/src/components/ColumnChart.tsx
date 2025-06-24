@@ -1,13 +1,27 @@
 import { createElement, ReactElement, useCallback, useMemo, useState } from "react";
 import { LayoutChangeEvent, Text, TextStyle, View } from "react-native";
-import { VictoryAxis, VictoryBar, VictoryChart, VictoryGroup, VictoryStack } from "victory-native";
+import {
+    VictoryAxis,
+    VictoryBar,
+    VictoryChart,
+    VictoryGroup,
+    VictoryStack,
+    VictoryTooltip,
+    VictoryVoronoiContainer
+} from "victory-native";
 import { BarProps } from "victory-bar";
 import { extractStyles } from "@mendix/pluggable-widgets-tools";
 
 import { ColumnChartStyle } from "../ui/Styles";
 import { SortOrderEnum } from "../../typings/ColumnChartProps";
 import { Legend } from "./Legend";
-import { aggregateGridPadding, mapToAxisStyle, mapToGridStyle, mapToColumnStyles } from "../utils/StyleUtils";
+import {
+    aggregateGridPadding,
+    mapToAxisStyle,
+    mapToGridStyle,
+    mapToColumnStyles,
+    mapToTooltipStyle
+} from "../utils/StyleUtils";
 
 export interface ColumnChartProps {
     name: string;
@@ -19,6 +33,13 @@ export interface ColumnChartProps {
     showLabels: boolean;
     xAxisLabel?: string;
     yAxisLabel?: string;
+    offsetY: number;
+    fixLabelOverlap: boolean;
+    useTooltip: boolean;
+    tooltipString?: string;
+    pointerLength?: number;
+    mouseFollowTooltips: boolean;
+    centerOffsetY?: number;
     warningPrefix?: string;
 }
 
@@ -53,6 +74,13 @@ export function ColumnChart({
     showLabels,
     xAxisLabel,
     yAxisLabel,
+    offsetY,
+    fixLabelOverlap,
+    useTooltip,
+    tooltipString,
+    pointerLength,
+    mouseFollowTooltips,
+    centerOffsetY,
     showLegend,
     sortOrder,
     style,
@@ -160,6 +188,13 @@ export function ColumnChart({
         [setChartDimensions]
     );
 
+    const useOffsetY = offsetY !== 9999; //CC: Empty value is not allowed for Integer in widget configuration, so 9999
+    const usePointerLength = pointerLength !== 9999; //CC: Empty value is not allowed for Integer in widget configuration, so 9999
+    const useCenterOffset = centerOffsetY !== 9999; //CC: Empty value is not allowed for Integer in widget configuration, so 9999
+    const tooltipProps = mapToTooltipStyle(style.tooltip);
+    // const yValues: number[] = firstSeries.dataPoints.map((point) => point.y).filter((y): y is number => typeof y === 'number');
+    // const absoluteHeight = yValues.length > 0 ? Math.max(...yValues) - Math.min(...yValues) : 15;
+
     return (
         <View style={style.container} testID={name}>
             {dataTypesResult instanceof Error ? (
@@ -178,6 +213,31 @@ export function ColumnChart({
                                 {chartDimensions ? (
                                     <VictoryChart
                                         domainPadding={{ x: style.domain?.padding?.x, y: style.domain?.padding?.y }}
+                                        /*CC:   Include a pressable surface that show a tooltip with the text tooltipString
+                                                And allow to not show pointer or set its length. */
+                                        containerComponent={
+                                            useTooltip ? (
+                                                <VictoryVoronoiContainer
+                                                    voronoiDimension="x"
+                                                    mouseFollowTooltips={mouseFollowTooltips}
+                                                    labels={({ datum }) =>
+                                                        `${replaceTokens(tooltipString || "", [], datum.x, datum.y)}`
+                                                    }
+                                                    labelComponent={
+                                                        <VictoryTooltip
+                                                            {...tooltipProps}
+                                                            constrainToVisibleArea
+                                                            pointerLength={usePointerLength ? pointerLength : undefined}
+                                                            centerOffset={
+                                                                useCenterOffset
+                                                                    ? { ...{ y: centerOffsetY } }
+                                                                    : undefined
+                                                            }
+                                                        />
+                                                    }
+                                                />
+                                            ) : undefined
+                                        }
                                         height={chartDimensions.height}
                                         width={chartDimensions.width}
                                         padding={aggregateGridPadding(style.grid)}
@@ -194,9 +254,22 @@ export function ColumnChart({
                                             {...(firstSeries?.xFormatter
                                                 ? { tickFormat: firstSeries.xFormatter }
                                                 : undefined)}
+                                            /*CC: Offset x-axis to a value set by user in widget.  Set y0 so set baseline to lowest value - 1. The -1 is to keep room for ticks on x-axis*/
+                                            offsetY={useOffsetY ? offsetY : undefined}
+                                            // y0={useOffsetY ? (d: any) => d.y0 - 1 : undefined} //y0 no longer works after upgrade to Mx10
+                                            /*CC: Added option for fixLabelOverlap */
+                                            fixLabelOverlap={fixLabelOverlap}
                                         />
+                                        {useOffsetY && (
+                                            <VictoryAxis /*CC: Add y=0 x-axis, without any ticks if original x-axis is offset */
+                                                orientation={"bottom"}
+                                                style={mapToAxisStyle(style.grid, style.xAxis0)}
+                                                tickFormat={() => ""}
+                                            />
+                                        )}
                                         <VictoryAxis
-                                            style={mapToAxisStyle(style.grid, style.yAxis)}
+                                            /*CC: Changed style.grid to gridY to allow for only grid on y-axis. */
+                                            style={mapToAxisStyle(style.gridY, style.yAxis)}
                                             orientation={"left"}
                                             dependentAxis
                                             {...(firstSeries?.yFormatter
@@ -333,6 +406,10 @@ function sortSeriesDataPoints(
     if (seriesDataType.y !== "number") {
         return series;
     }
+    if (sortingOrder === "noSort") {
+        /*CC Added enum option noSort to force not sorting if x-axis is string datatype and y-axis is number (it always used ascending/descending)*/
+        return series;
+    }
     const keysSum: { [key: string]: number } = {};
     series.forEach(({ dataPoints }) => {
         dataPoints.forEach(({ x, y }) => {
@@ -347,7 +424,6 @@ function sortSeriesDataPoints(
 
     return series.map(seriesItem => {
         const dataPoints = seriesItem.dataPoints as Array<ColumnDataPoint<string, number>>;
-
         const sortedDataPoints = Object.keys(keysSum)
             .sort((key1, key2) => {
                 return sortingOrder === "descending" ? keysSum[key2] - keysSum[key1] : keysSum[key1] - keysSum[key2];
@@ -359,4 +435,36 @@ function sortSeriesDataPoints(
 
         return { ...seriesItem, dataPoints: sortedDataPoints };
     });
+}
+
+function replaceTokens(text: string, replacementStack: string[], xValue: any, yValue: any) {
+    /* CC: Replace Tokens in given string, taken from https://stackoverflow.com/questions/43818516/replace-text-with-tokens-from-a-list-using-regular-expression
+    Updated with typescript and changed tokens array to widget specific values */
+    let tokens: { [key: string]: string | undefined } = {
+        x: String(xValue),
+        y: String(yValue)
+    };
+
+    const re = /{[\w]*\}/g; // match initial regex
+
+    let result = text;
+    let textTokens = text.match(re);
+    replacementStack = replacementStack || [];
+
+    textTokens &&
+        textTokens.forEach(m => {
+            let token = m.replace(/{|}/g, "");
+            // Prevent circular replacement, token should not have already replaced
+            if (replacementStack.indexOf(token) === -1) {
+                // add token to replacement stack
+                replacementStack.push(token);
+                let replacement = tokens[token];
+                if (replacement) {
+                    replacement = replaceTokens(replacement, replacementStack, xValue, yValue);
+                    result = result.replace(m, replacement);
+                }
+            }
+        });
+
+    return result;
 }

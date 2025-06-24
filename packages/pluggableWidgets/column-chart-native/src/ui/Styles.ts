@@ -54,7 +54,9 @@ export interface ColumnChartStyle {
     errorMessage?: TextStyle;
     chart?: ViewStyle;
     grid?: ColumnChartGridStyle;
+    gridY?: ColumnChartGridStyle;
     xAxis?: ColumnChartAxisStyle<"X">;
+    xAxis0?: ColumnChartAxisStyle<"X">;
     yAxis?: ColumnChartAxisStyle<"Y">;
     legend?: ColumnChartLegendStyle;
     domain?: {
@@ -69,6 +71,26 @@ export interface ColumnChartStyle {
                 label?: ColumnChartColumnLabelStyle;
             };
         };
+    };
+    tooltip?: ColumnChartTooltipStyle;
+}
+
+/*CC: Add type for tooltip styling (should match possible values in Mendix Native JS styling and usage in StyleUtils.ts*/
+export interface ColumnChartTooltipStyle {
+    tooltipStyle: {
+        fill?: string;
+        fontFamily?: string;
+    };
+    flyoutStyle: {
+        stroke?: string;
+        fill?: string;
+        strokeWidth?: number;
+    };
+    flyoutPadding: {
+        top?: number;
+        bottom?: number;
+        left?: number;
+        right?: number;
     };
 }
 
